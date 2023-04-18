@@ -6,7 +6,14 @@
 import scrapy
 
 
-class ScrapItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class TopMovieItem(scrapy.Item):
+    title = scrapy.Field()
+    original_title = scrapy.Field()
+    score = scrapy.Field()
+    genre = scrapy.Field()
+    year = scrapy.Field()
+    time = scrapy.Field()
+    description = scrapy.Field()
+    actor = scrapy.Field()
+    public = scrapy.Field()
+    country = scrapy.Field()
