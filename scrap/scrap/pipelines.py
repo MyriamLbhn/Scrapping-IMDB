@@ -7,7 +7,21 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 
+from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
 
-class ScrapPipeline:
+class ScrapPipeline(object):
+    
+    def __init__(self) -> None:
+        load_dotenv(dotenv_path='/home/apprenant/Documents/DevIA/Projet_DevIA/Scrapping-IMDB/.env')
+        ATLAS_KEY = os.getenv('ATLAS_KEY')
+        self.client = MongoClient(ATLAS_KEY)
+        self.db = self.client['IMBDScrapping']
+        self.collection = self.db['Movies']
+
+    
     def process_item(self, item, spider):
+        self.collection.insert_one(dict(item))
         return item
+

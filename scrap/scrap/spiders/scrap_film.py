@@ -9,11 +9,6 @@ class IMDbTop250Movie(CrawlSpider):
     name = 'top_rated_movies'
     allowed_domains = ['imdb.com']
     start_urls = ['https://www.imdb.com/chart/top/']
-    movie_count = 0
-
-    custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
-    }
 
     rules = (
         Rule(LinkExtractor(restrict_css=".titleColumn a"), callback="parse_movie"),
@@ -32,7 +27,8 @@ class IMDbTop250Movie(CrawlSpider):
         score = response.css("span.iZlgcd::text").get()
         genre = response.css('a.ipc-chip--on-baseAlt span.ipc-chip__text::text').getall()
         year = response.css('ul.sc-afe43def-4 li.ipc-inline-list__item a.ipc-link--inherit-color::text').get()
-        time = convert_to_minutes(response.css('ul.sc-afe43def-4 li.ipc-inline-list__item::text').get())
+        time_dflt = response.css('ul.sc-afe43def-4 li.ipc-inline-list__item::text').get()
+        time = convert_to_minutes(time_dflt)
         storyline = response.css('span.sc-5f699a2-0::text').get()
         stars = list(set(response.css('li.ipc-metadata-list__item:contains("Stars") li.ipc-inline-list__item a.ipc-metadata-list-item__list-content-item--link::text').getall()))
         public = response.css('ul.sc-afe43def-4 li.ipc-inline-list__item a.ipc-link--inherit-color::text').getall()[-1]
