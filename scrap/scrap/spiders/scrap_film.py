@@ -32,10 +32,9 @@ class IMDbTop250Movie(CrawlSpider):
         score = response.css("span.iZlgcd::text").get()
         genre = response.css('a.ipc-chip--on-baseAlt span.ipc-chip__text::text').getall()
         year = response.css('ul.sc-afe43def-4 li.ipc-inline-list__item a.ipc-link--inherit-color::text').get()
-        time_dflt = response.css('ul.sc-afe43def-4 li.ipc-inline-list__item::text').get()
-        time = convert_to_minutes(time_dflt)
-        description = response.css('span.sc-5f699a2-0::text').get()
-        actor = list(set(response.css('li.ipc-metadata-list__item:contains("Stars") li.ipc-inline-list__item a.ipc-metadata-list-item__list-content-item--link::text').getall()))
+        time = convert_to_minutes(response.css('ul.sc-afe43def-4 li.ipc-inline-list__item::text').get())
+        storyline = response.css('span.sc-5f699a2-0::text').get()
+        stars = list(set(response.css('li.ipc-metadata-list__item:contains("Stars") li.ipc-inline-list__item a.ipc-metadata-list-item__list-content-item--link::text').getall()))
         public = response.css('ul.sc-afe43def-4 li.ipc-inline-list__item a.ipc-link--inherit-color::text').getall()[-1]
         country = response.css('li.ipc-metadata-list__item[data-testid="title-details-origin"] a.ipc-metadata-list-item__list-content-item--link::text').getall()
       
@@ -47,8 +46,8 @@ class IMDbTop250Movie(CrawlSpider):
         top_movies_items['genre'] = genre
         top_movies_items['year'] = year
         top_movies_items['time'] = time
-        top_movies_items['description'] = description
-        top_movies_items['actor'] = actor
+        top_movies_items['storyline'] = storyline
+        top_movies_items['stars'] = stars
         top_movies_items['public'] = public
         top_movies_items['country'] = country        
             
