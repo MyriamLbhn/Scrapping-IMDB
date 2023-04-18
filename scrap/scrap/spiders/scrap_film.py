@@ -1,6 +1,7 @@
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from ..items import TopMovieItem
+from ..fonctions import convert_to_minutes
 import scrapy
 
 
@@ -31,7 +32,8 @@ class IMDbTop250Movie(CrawlSpider):
         score = response.css("span.iZlgcd::text").get()
         genre = response.css('a.ipc-chip--on-baseAlt span.ipc-chip__text::text').getall()
         year = response.css('ul.sc-afe43def-4 li.ipc-inline-list__item a.ipc-link--inherit-color::text').get()
-        time = response.css('ul.sc-afe43def-4 li.ipc-inline-list__item::text').get()
+        time_dflt = response.css('ul.sc-afe43def-4 li.ipc-inline-list__item::text').get()
+        time = convert_to_minutes(time_dflt)
         description = response.css('span.sc-5f699a2-0::text').get()
         actor = list(set(response.css('li.ipc-metadata-list__item:contains("Stars") li.ipc-inline-list__item a.ipc-metadata-list-item__list-content-item--link::text').getall()))
         public = response.css('ul.sc-afe43def-4 li.ipc-inline-list__item a.ipc-link--inherit-color::text').getall()[-1]
