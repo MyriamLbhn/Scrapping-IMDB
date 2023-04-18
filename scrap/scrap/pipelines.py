@@ -17,10 +17,9 @@ class ScrapPipeline(object):
         load_dotenv(dotenv_path='/home/apprenant/Documents/DevIA/Projet_DevIA/Scrapping-IMDB/.env')
         ATLAS_KEY = os.getenv('ATLAS_KEY')
         self.client = MongoClient(ATLAS_KEY)
-        self.db = self.client['IMBDScrapping']
-        self.collection = self.db['Movies']
+        self.db = self.client['imbd-scrap']
+        self.collection = self.db['movies']
 
-    
     def process_item(self, item, spider):
         self.collection.insert_one(dict(item))
         return item
