@@ -17,3 +17,16 @@ class TopMovieItem(scrapy.Item):
     stars = scrapy.Field()
     public = scrapy.Field()
     country = scrapy.Field()
+    
+
+class TopSerieItem(scrapy.Item):
+    title = scrapy.Field()
+    original_title = scrapy.Field()
+    score = scrapy.Field()
+    genre = scrapy.Field()
+    year = scrapy.Field()
+    time = scrapy.Field()
+    storyline = scrapy.Field()
+    stars = scrapy.Field()
+    public = scrapy.Field()
+    country = scrapy.Field()

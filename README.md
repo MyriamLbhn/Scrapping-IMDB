@@ -14,10 +14,12 @@ Dans la deuxième partie du projet, nous allons stocker les informations récup�
 ## Fichiers :
 Projet scrapy : scrap
     scrap > scrap > spiders > scrap_film.py : fichier spider pour extraire les informations sur les films
+                    scrap_serie.py : fichier spider pour extraire les informations sur les series
                     fonctions.py : contient la fonction pour convertir la durée du film en minute
                     items.py : contient le modèle pour nos items scrapés
                     pipelines.py : contient la pipeline pour envoyer les données scrapées directement sur Atlas
                     top_rated_movies.csv : fichier csv contenant les informations des films, générés avec la commande "scrapy crawl top_rated_movies -O top_rated_movies.csv"
+                    
 
 
 
