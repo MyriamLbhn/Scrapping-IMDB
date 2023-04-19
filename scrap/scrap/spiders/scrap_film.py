@@ -23,7 +23,9 @@ class IMDbTop250Movie(CrawlSpider):
 
     def parse_movie(self, response):
         title = response.css("h1[data-testid='hero__pageTitle'] span::text").get().strip()
-        original_title = response.css('li.ipc-metadata-list__item:contains("Also known as") span.ipc-metadata-list-item__list-content-item::text').getall()
+        original_title = response.css('div.sc-afe43def-3::text').extract_first()
+        if original_title is not None:
+            original_title = original_title.replace("Original title: ", "")
         score = response.css("span.iZlgcd::text").get()
         genre = response.css('a.ipc-chip--on-baseAlt span.ipc-chip__text::text').getall()
         year = response.css('ul.sc-afe43def-4 li.ipc-inline-list__item a.ipc-link--inherit-color::text').get()

@@ -18,9 +18,16 @@ class ScrapPipeline(object):
         ATLAS_KEY = os.getenv('ATLAS_KEY')
         self.client = MongoClient(ATLAS_KEY)
         self.db = self.client['imbd-scrap']
-        self.collection = self.db['movies']
+        self.movies_collection = self.db['movies']
+        self.series_collection = self.db['series']
 
     def process_item(self, item, spider):
-        self.collection.insert_one(dict(item))
+        if spider.name == 'top_rated_movies':
+            self.movies_collection.insert_one(dict(item))
+        elif spider.name == 'top_rated_series':
+            self.series_collection.insert_one(dict(item))
         return item
+    
+    
+        
 

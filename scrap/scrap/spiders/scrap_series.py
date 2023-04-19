@@ -6,7 +6,7 @@ import scrapy
 
 
 class IMDbTop250Serie(CrawlSpider):
-    name = 'top_rated_tv_shows'
+    name = 'top_rated_series'
     allowed_domains = ['imdb.com']
     start_urls = ['https://www.imdb.com/chart/toptv/']
 
@@ -25,15 +25,17 @@ class IMDbTop250Serie(CrawlSpider):
 
     def parse_serie(self, response):
         title = response.css("h1[data-testid='hero__pageTitle'] span::text").get().strip()
-        original_title = response.css('li.ipc-metadata-list__item:contains("Original title") span.ipc-metadata-list-item__list-content-item::text').getall()
-        score = response.css("span.iTLWoV::text").get()
+        original_title = response.css('div.sc-afe43def-3::text').extract_first()
+        if original_title is not None:
+            original_title = original_title.replace("Original title: ", "")
+        score = response.css("span.iZlgcd::text").get()
         genre = response.css('a.ipc-chip--on-baseAlt span.ipc-chip__text::text').getall()
-        year = response.css('ul.sc-htoDjs.kOCCPw li.ipc-inline-list__item a.ipc-link--inherit-color::text').get()
-        time_dflt = response.css('ul.sc-htoDjs.kOCCPw li.ipc-inline-list__item::text').get()
+        year = response.css('ul.sc-afe43def-4 li.ipc-inline-list__item a.ipc-link--inherit-color::text').get()
+        time_dflt = response.css(".ipc-inline-list--show-dividers li:nth-of-type(4)::text").extract_first()
         time = convert_to_minutes(time_dflt)
-        storyline = response.css('span.Td8wCn::text').get()
+        storyline = response.css('span.sc-5f699a2-0::text').get()
         stars = list(set(response.css('li.ipc-metadata-list__item:contains("Stars") li.ipc-inline-list__item a.ipc-metadata-list-item__list-content-item--link::text').getall()))
-        public = response.css('ul.sc-htoDjs.kOCCPw li.ipc-inline-list__item a.ipc-link--inherit-color::text').getall()[-1]
+        public = response.css('ul.sc-afe43def-4 li.ipc-inline-list__item a.ipc-link--inherit-color::text').getall()[-1]
         country = response.css('li.ipc-metadata-list__item[data-testid="title-details-origin"] a.ipc-metadata-list-item__list-content-item--link::text').getall()
 
         top_series_items = TopSerieItem()
