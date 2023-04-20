@@ -34,12 +34,12 @@ def count_movies_by_actor(actor_name: str) -> str:
     Compte le nombre de films dans lesquels un acteur a joué.
 
     Args:
-        actor_name (str): Nom de l'acteur.
+        actor_name (str):Prénom et nom complet de l'acteur.
 
     Returns:
         str: Chaîne de caractères indiquant le nombre de films (integer) dans lesquels l'acteur a joué.
     '''
-    count = movies_collection.count_documents({"stars": {"$regex": actor_name, "$options": "i"}})
+    count = movies_collection.count_documents({"stars": {"$regex": f"^{actor_name}$", "$options": "i"}})
     return f"{actor_name} a joué dans {count} films"
 
 
