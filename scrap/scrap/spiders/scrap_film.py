@@ -14,7 +14,7 @@ class IMDbTop250Movie(CrawlSpider):
         Rule(LinkExtractor(restrict_css=".titleColumn a"), callback="parse_movie"),
     )
 
-    user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'
+    user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36'
 
     def start_requests(self):
         yield scrapy.Request(url='https://www.imdb.com/chart/top/?ref_=nv_mv_250', headers={
