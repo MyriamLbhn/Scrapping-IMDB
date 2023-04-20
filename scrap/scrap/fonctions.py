@@ -1,4 +1,13 @@
-def convert_to_minutes(time):
+def convert_to_minutes(time: str) -> int or None:
+    '''
+        Convertit la durée d'un film en minutes.
+
+    Args:
+        time (str): La durée d'un film au format 'h min' ou 'h'.
+
+    Returns:
+        [int, None]: La durée du film en minutes ou None si la durée est invalide.
+        '''
     if time and 'h' in time and 'm' in time:
         hours, minutes = time.split('h ')
         minutes = minutes.rstrip('m')
