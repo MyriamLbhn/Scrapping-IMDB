@@ -10,7 +10,7 @@ tabs = ['Films', 'Séries', 'Quelques stats sur les films' ]
 selected_tab = st.sidebar.radio('Sélectionnez une catégorie', tabs)
 
 
-if selected_tab in ['Films', 'Series'] : 
+if selected_tab in ['Films', 'Séries'] : 
     # Interface utilisateur
     st.title('Recherche de films et de séries sur IMDb')
 
@@ -19,9 +19,9 @@ if selected_tab in ['Films', 'Series'] :
     name = st.text_input('Nom du film ou de la série')
     if name:
         if selected_tab == 'Films':
-            results = search_movies_by_name(name)
+            results = search_media_by_name(name, 'movies')
         else:
-            results = search_series_by_name(name)
+            results = search_media_by_name(name, 'series')
         if results:
             df = pd.DataFrame(results)
             st.write(df)
@@ -34,9 +34,9 @@ if selected_tab in ['Films', 'Series'] :
     actors = st.text_input('Acteur(s)')
     if actors:
         if selected_tab == 'Films':
-            results = search_movies_by_actors(actors)
+            results = search_media_by_actors(actors, 'movies')
         else:
-            results = search_series_by_actors(actors)
+            results = search_media_by_actors(actors, 'series')
         if results:
             df = pd.DataFrame(results)
             st.write(df)
@@ -50,9 +50,9 @@ if selected_tab in ['Films', 'Series'] :
     genre = st.selectbox('Genre', genres)
     if genre:
         if selected_tab == 'Films':
-            results = search_movies_by_genre(genre)
+            results = search_media_by_genre(genre, 'movies')
         else:
-            results = search_series_by_genre(genre)
+            results = search_media_by_genre(genre, 'series')
         if results:
             df = pd.DataFrame(results)
             st.write(df)
@@ -65,9 +65,9 @@ if selected_tab in ['Films', 'Series'] :
     duration = st.slider('Durée maximale', 0, 300, 120)
     if duration:
         if selected_tab == 'Films':
-            results = search_movies_by_duration(duration)
+            results = search_media_by_duration(duration, 'movies')
         else:
-            results =search_series_by_duration(duration)
+            results =search_media_by_duration(duration, 'series')
         if results:
             df = pd.DataFrame(results)
             st.write(df)
@@ -80,9 +80,9 @@ if selected_tab in ['Films', 'Series'] :
     score = st.slider('Note minimale', 8.0, 10.0, 8.0, 0.1)
     if score:
         if selected_tab == 'Films':
-            results = search_movies_by_score(score)
+            results = search_media_by_score(score, 'movies')
         else :
-            results = search_series_by_score(score)
+            results = search_media_by_score(score, 'series')
         if results:
             df = pd.DataFrame(results)
             st.write(df)
